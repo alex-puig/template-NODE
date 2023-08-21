@@ -3,7 +3,7 @@ const cors = require('cors');
 const meseroRoutes = require('./routes/meseroRoutes');
 const facturaRoutes = require('./routes/facturaRoutes');
 const clienteRoutes = require('./routes/clienteRoutes');
-const port = 3000;
+const port = 4000;
 
 const app = express(); // Create an Express app instance
 app.use(cors());
