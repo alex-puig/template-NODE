@@ -1,10 +1,14 @@
 {
   "development": {
-    "username": "user",
-    "password": "password",
-    "database": "db",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "fl0user",
+    "password": "VJ7ShBxeAit2",
+    "database": "ExamenDB",
+    "host": "ep-sparkling-shadow-45479189.us-east-2.aws.neon.tech",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true
+    }}
   },
   "test": {
     "username": "user",
