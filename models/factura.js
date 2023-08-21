@@ -36,22 +36,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false},
         
     subTotal: {type: DataTypes.FLOAT,
-               allowNull: false,
-               set(value) {
-               if (!isNaN(parseFloat(value))) {
-                    this.setDataValue('subTotal', parseFloat(value.toFixed(2)));
-               }
-               }
-               },
+               allowNull: false},
             
     total: {type: DataTypes.FLOAT,
-               allowNull: false,
-               set(value) {
-               if (!isNaN(parseFloat(value))) {
-                    this.setDataValue('total', parseFloat(value.toFixed(2)));
-               }
-               }
-               },
+               allowNull: false},
   }, {
     sequelize,
     modelName: 'Factura',

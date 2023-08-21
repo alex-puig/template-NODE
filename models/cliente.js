@@ -81,13 +81,7 @@ module.exports = (sequelize, DataTypes) => {
                       }
               },
     montoTotal: {type: DataTypes.FLOAT,
-                allowNull: false,
-                set(value) {
-                  if (!isNaN(parseFloat(value))) {
-                    this.setDataValue('montoTotal', parseFloat(value.toFixed(2)));
-                  }
-                }
-                },
+                allowNull: false},
     fecha: {type: DataTypes.DATEONLY,
             allowNull: false,
           defaultValue: DataTypes.NOW,

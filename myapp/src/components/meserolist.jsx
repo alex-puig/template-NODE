@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Form, Button, Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -11,6 +10,8 @@ const [nombre, setNombre] = useState('');
 const [apellidos, setApellidos] = useState('');
 const [showCannotDeleteModal, setShowCannotDeleteModal] = useState(false);
 const [cannotDeleteMessage, setCannotDeleteMessage] = useState('');
+const [selectedMesero, setSelectedMesero] = useState(null);
+
 
 
   const fetchMeseros = async () => {
@@ -68,12 +69,22 @@ const [cannotDeleteMessage, setCannotDeleteMessage] = useState('');
       setApellidos('');
     };
 
+
+    const openDetailsModal = (mesero) => {
+      setSelectedMesero(mesero);
+    };
+  
+
   return (
     <div>
-      <h2>Meseros</h2>
-      <Button variant="primary" onClick={() => setShowModal(true)}>
-        Agregar Mesero
-      </Button>
+      <br></br>
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        <h1 style={{ fontSize: '24px', marginBottom: '0' }}>Meseros</h1>
+        <Button variant="primary" style={{ marginLeft: '20px' }} onClick={() => setShowModal(true)}>
+          Agregar Mesero
+        </Button>
+      </div>
+      <br></br>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Agregar Mesero</Modal.Title>
@@ -112,7 +123,7 @@ const [cannotDeleteMessage, setCannotDeleteMessage] = useState('');
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>IdMesero</th>
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Acciones</th>
@@ -121,11 +132,13 @@ const [cannotDeleteMessage, setCannotDeleteMessage] = useState('');
         <tbody>
           {meseros.map((mesero) => (
             <tr key={mesero.idMesero}>
-              <td>{mesero.idMesero}</td>
-              <td>{mesero.nombre}</td>
-              <td>{mesero.apellidos}</td>
-              <td>
-                <Link to={`/meseros/${mesero.idMesero}`}>Ver Detalles</Link>
+            <td style={{ textAlign: 'center' }}>{mesero.idMesero}</td>
+            <td style={{ textAlign: 'center' }}>{mesero.nombre}</td>
+            <td style={{ textAlign: 'center' }}>{mesero.apellidos}</td>
+            <td style={{ textAlign: 'center' }}>
+                <Button variant="info" style={{ marginRight: '10px' }} onClick={() => openDetailsModal(mesero)}>
+                  Ver Detalles
+                </Button>
                 <Button
                   variant="danger"
                   onClick={() => {
@@ -147,6 +160,27 @@ const [cannotDeleteMessage, setCannotDeleteMessage] = useState('');
         <Modal.Body>{cannotDeleteMessage}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowCannotDeleteModal(false)}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={selectedMesero !== null} onHide={() => setSelectedMesero(null)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Detalles del Mesero</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedMesero && (
+            <div>
+              <p>IdMesero: {selectedMesero.idMesero}</p>
+              <p>Nombre: {selectedMesero.nombre}</p>
+              <p>Apellidos: {selectedMesero.apellidos}</p>
+              {/* Add more mesero details as needed */}
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setSelectedMesero(null)}>
             Cerrar
           </Button>
         </Modal.Footer>
