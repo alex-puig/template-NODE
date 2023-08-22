@@ -77,4 +77,25 @@ try {
 }
 });
 
+// UPDATE
+router.put('/api/v1/clientes/:idCliente', async (req, res) => {
+    const idCliente = req.params.idCliente;
+
+    try {
+        const updatedCliente = req.body;
+    
+        const [rowsAffected] = await Cliente.update(updatedCliente, {
+          where: { idCliente }
+        });
+    
+        if (rowsAffected > 0) {
+          res.status(200).json({ message: 'Cliente actualizado correctamente.' });
+        } else {
+          res.status(404).json({ message: 'Cliente no encontrado :C.' });
+        }
+      } catch (error) {
+        res.status(500).json({ error: 'Error al actualizar al Cliente :C.' });
+      }
+    });
+
 module.exports = router;
